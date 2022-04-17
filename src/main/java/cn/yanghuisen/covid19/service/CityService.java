@@ -9,5 +9,10 @@ import java.util.List;
  * @date 2022/4/16
  */
 public interface CityService {
+    /**
+     * 根据省ID查找市/区
+     * @param proId 省的ID
+     * @return result
+     */
     List<City> findCityByProId(String proId);
 }

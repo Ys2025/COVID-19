@@ -8,5 +8,12 @@ import java.util.Map;
  * @date 2022/4/16
  */
 public interface AddressService {
+    /**
+     * 根据居住地查找居住地
+     * @param address  居住地
+     * @param page 分页
+     * @param limit 每页数量
+     * @return result
+     */
     List<Map<String,Object>> findAddress(String address,String page,String limit);
 }

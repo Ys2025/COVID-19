@@ -33,5 +33,9 @@ public interface DayDataMapper {
      */
     List<DayData> findDayDataByCityId(String cityId);
 
+    /**
+     * 获取最大的DayData日期
+     * @return result
+     */
     Date getMaxDayDataDate();
 }

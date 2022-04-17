@@ -10,5 +10,10 @@ import java.util.List;
  */
 public interface DayDataService {
 
+    /**
+     * 根据CityID查找DayDate
+     * @param cityId 市/区
+     * @return result
+     */
     List<DayData> findDayDataByCityId(String cityId);
 }
