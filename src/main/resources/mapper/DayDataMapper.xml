@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.yanghuisen.covid19.mapper.DayDataMapper">
+    <insert id="addDayData">
+        insert into t_day_data (id,city_id,date,diagnosis,asymptomatic)
+        values (#{id},#{cityId},#{date},#{diagnosis},#{asymptomatic})
+    </insert>
+    <delete id="delDayData">
+        update t_day_data set state = '0' where city_id = #{cityId} and date = #{date}
+    </delete>
+    <select id="findDayDataByCityId" resultType="cn.yanghuisen.covid19.pojo.DayData">
+        select * from t_day_data where state = 1 and city_id = #{CityId} order by date desc
+    </select>
+    <select id="getMaxDayDataDate" resultType="java.util.Date">
+        SELECT
+            DATE_FORMAT( max( date ), '%Y-%m-%d' )
+        FROM
+            t_day_data a
+        WHERE
+            a.state = 1
+    </select>
+
+</mapper>

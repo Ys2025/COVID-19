@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.yanghuisen.covid19.mapper.CityMapper">
+
+
+    <insert id="addCity" parameterType="city">
+        insert into t_city (id,pro_id,name) values (#{id},#{proId},#{name})
+    </insert>
+    <select id="findCityByProId" resultType="cn.yanghuisen.covid19.pojo.City">
+        select * from t_city where pro_id = #{proId} order by id
+    </select>
+</mapper>

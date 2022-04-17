@@ -1,0 +1,31 @@
+server:
+  port: 8080
+spring:
+  datasource:
+    url: jdbc:mysql://10.0.0.100:3306/covid19?characterEncoding=utf8&useSSL=false&serverTimezone=Asia/Shanghai&rewriteBatchedStatements=true
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password: 123456
+  thymeleaf:
+    prefix: classpath:/templates/
+    suffix: .html
+    mode: HTML5
+    encoding: UTF-8
+    servlet:
+      content-type: text/html
+    cache: false
+  jackson:
+    time-zone: Asia/Shanghai
+
+mybatis:
+  type-aliases-package: cn.yanghuisen.covid19.pojo
+  mapper-locations: classpath:/mapper/*.xml
+  configuration:
+    map-underscore-to-camel-case: true
+logging:
+  level:
+    cn.yanghuisen.covid19: debug
+
+covid-19:
+  # 是否启动Job
+  shCovid19Job: false

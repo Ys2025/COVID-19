@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.yanghuisen.covid19.mapper.AddressMapper">
+
+    <insert id="addAddress">
+        insert into t_address (id,day_data_id,address) values(#{id},#{dayDataId},#{address})
+    </insert>
+    <delete id="delAddress">
+        update t_address a set a.state = '0' where a.day_data_id in (
+                select id from t_day_data b where b.city_id = #{param1} and b.date = #{param2}
+            )
+    </delete>
+    <select id="findAddressByAddress" resultType="map">
+        SELECT
+            d.name as pro_name,c.name as city_name,a.address,b.date,date_add(b.date,interval 14 day) as open_date
+        FROM
+            t_address a,
+            t_day_data b,
+            t_city c,
+            t_province d
+          <where>
+              a.state = 1
+              AND b.state = 1
+              AND a.day_data_id = b.id
+              AND b.city_id = c.id
+              AND c.pro_id = d.id
+              <if test="null != address and address !=''">
+                  <bind name="address" value="'%'+address+'%'"/>
+                  and a.address like #{address}
+              </if>
+          </where>
+            order by d.id,c.id,b.date desc
+
+
+    </select>
+</mapper>
