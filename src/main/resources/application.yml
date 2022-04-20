@@ -28,4 +28,4 @@ logging:
 
 covid-19:
   # 是否启动Job
-  shCovid19Job: false
+  shCovid19Job: true

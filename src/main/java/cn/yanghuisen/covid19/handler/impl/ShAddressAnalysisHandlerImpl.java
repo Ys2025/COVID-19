@@ -162,14 +162,17 @@ public class ShAddressAnalysisHandlerImpl implements AddressAnalysisHandler {
                     // 替换字符
                     addressStr = addressStr.replaceAll("，","");
                     addressStr = addressStr.replaceAll("。","");
-                    if (!"<br  />".equals(addressStr) && !"已对相关居住地落实终末消毒措施".equals(addressStr)){
+                    addressStr = addressStr.replaceAll("&nbsp;","");
+                    addressStr = addressStr.replaceAll("、","");
+                    addressStr = addressStr.replaceAll("<br  />","");
+                    if (StrUtil.isNotBlank(addressStr) && !"已对相关居住地落实终末消毒措施".equals(addressStr)){
                         Address address = new Address();
                         // id
                         address.setId(IdUtil.getSnowflakeNextId());
                         // 对应的天的ID
                         address.setDayDataId(id);
                         // 居住地
-                        address.setAddress(addressStr.replaceAll("，", ""));
+                        address.setAddress(addressStr);
                         addressMapper.addAddress(address);
                     }
                 }

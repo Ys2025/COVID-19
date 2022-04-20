@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author 啥也不会的程序员
@@ -25,5 +26,10 @@ public class CityServiceImpl implements CityService {
     @Override
     public List<City> findCityByProId(String proId) {
         return cityMapper.findCityByProId(Long.parseLong(proId));
+    }
+
+    @Override
+    public List<Map<String, Object>> findCityCount(String proId) {
+        return cityMapper.findCityCount(Long.parseLong(proId));
     }
 }

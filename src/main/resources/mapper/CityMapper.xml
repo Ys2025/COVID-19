@@ -11,4 +11,40 @@
     <select id="findCityByProId" resultType="cn.yanghuisen.covid19.pojo.City">
         select * from t_city where pro_id = #{proId} order by id
     </select>
+    <select id="findCityCount" resultType="java.util.Map">
+        SELECT
+            t.pro_id,
+            t.city_id,
+            t.city_name,
+            count( 1 ) AS count
+        FROM
+            (
+                SELECT
+                    a.id AS pro_id,
+                    b.id AS city_id,
+                    b.NAME AS city_name,
+                    d.address,
+                    count( 1 ) AS count
+                FROM
+                    t_province a,
+                    t_city b,
+                    t_day_data c,
+                    t_address d
+                WHERE
+                    a.id = #{proId}
+                    AND a.id = b.pro_id
+                    AND b.id = c.city_id
+                    AND c.id = d.day_data_id
+                    AND c.state = 1
+                    AND d.state = 1
+                GROUP BY
+                    b.id,
+                    b.id,
+                    b.NAME,
+                    d.address
+            ) t
+        GROUP BY
+            t.pro_id,
+            t.city_id
+    </select>
 </mapper>

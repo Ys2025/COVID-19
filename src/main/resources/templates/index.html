@@ -35,6 +35,7 @@
 
 
         <div id="main" style="width:100%; height: 500px;"></div>
+        <div id="main1" style="width:100%; height: 500px;margin-top: 10px"></div>
 
 
         <script>
@@ -120,6 +121,7 @@
                             $('#citySelect').append('<option value="' + data[i].id + '">' + data[i].name + '</option>');
                         }
                         initEcharts();
+                        initCityCountEcharts();
                     }
                 })
             }
@@ -191,6 +193,62 @@
                             ]
                         };
                         echarts.init(document.getElementById('main')).setOption(option);
+                    }
+                })
+            }
+
+            function initCityCountEcharts(){
+                let itemSelect = $('#citySelect option:selected');
+                let cityId = itemSelect.val();
+                let cityName = itemSelect.text();
+                if (cityId === undefined || cityId == null) {
+                    return false;
+                }
+                $.ajax({
+                    url: '/city/findCityCount',
+                    type: 'post',
+                    data: {
+                        proId: '1514979369040113664'
+                    },
+                    success(res) {
+                        let data = res.data;
+                        let echartsData = [];
+                        for (let i in data){
+                            let itemData = {
+                                value: data[i].count,
+                                name: data[i].city_name
+                            }
+                            echartsData.push(itemData)
+                        }
+                        let option = {
+                            title: {
+                                text: '上海各区确诊居住地数量',
+                                left: 'center'
+                            },
+                            tooltip: {
+                                trigger: 'item'
+                            },
+                            legend: {
+                                orient: 'vertical',
+                                left: 'left'
+                            },
+                            series: [
+                                {
+                                    name: '数量',
+                                    type: 'pie',
+                                    radius: '50%',
+                                    data: echartsData,
+                                    emphasis: {
+                                        itemStyle: {
+                                            shadowBlur: 10,
+                                            shadowOffsetX: 0,
+                                            shadowColor: 'rgba(0, 0, 0, 0.5)'
+                                        }
+                                    }
+                                }
+                            ]
+                        };
+                        echarts.init(document.getElementById('main1')).setOption(option);
                     }
                 })
             }
