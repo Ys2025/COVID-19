@@ -222,7 +222,7 @@
                         }
                         let option = {
                             title: {
-                                text: '上海各区确诊居住地数量',
+                                text: '上海各区感染者居住地数量',
                                 left: 'center'
                             },
                             tooltip: {
@@ -231,6 +231,11 @@
                             legend: {
                                 orient: 'vertical',
                                 left: 'left'
+                            },
+                            toolbox: {
+                                feature: {
+                                    saveAsImage: {}
+                                }
                             },
                             series: [
                                 {
